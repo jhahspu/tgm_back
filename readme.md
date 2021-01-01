@@ -12,4 +12,4 @@ New API for https://topgoodmovies.com
 ### Movies:
 - [x] random titles
 - [x] latest titles
-- [ ] check/add new titles 
+- [ ] check/add new titles
