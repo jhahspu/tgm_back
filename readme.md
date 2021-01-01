@@ -4,11 +4,12 @@ New API for https://topgoodmovies.com
 
 ### Users:
 - [x] registration
-- [x] login
+- [x] sign in
 - [ ] check user token
 - [ ] change pass
+- [ ] delete account
 
-### Movies
+### Movies:
 - [x] random titles
 - [x] latest titles
-- [ ] add new titles
+- [ ] check/add new titles 
