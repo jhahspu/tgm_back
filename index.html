@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>htdocs</title>
+
+  <style>
+    section {
+      padding: 1rem 0;
+    }
+    .json {
+      padding: 1rem;
+      max-height: 10rem;
+      overflow-y: scroll;
+      border: 1px solid #aea;
+    }
+    pre {
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+  
+  <h1>hi.</h1>
+
+  <section >
+    <h3>Random</h3>
+    <button id="btn-rnd">Get Movies</button>
+    <div id="res-movies"></div>
+  </section>
+
+
+  <section>
+    <h3>Latest</h3>
+    <button id="btn-ltst">Get Latest</button>
+    <div id="res-latest"></div>
+  </section>
+
+
+  <section>
+    <form name="signin">
+      <div>
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email" required>
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="text" name="password" id="password" required>
+      </div>
+      <input type="submit" value="Sign In" name="signInSubmit">
+    </form>
+  </section>
+
+
+  <section>
+    <form name="register">
+      <div>
+        <label for="remail">Email</label>
+        <input type="text" name="remail" id="remail">
+      </div>
+      <div>
+        <label for="rpassword1">Password</label>
+        <input type="text" name="rpassword1" id="rpassword1">
+      </div>
+      <div>
+        <label for="rpassword2">Verify Password</label>
+        <input type="text" name="rpassword2" id="rpassword2">
+      </div>
+      <input type="submit" value="Register" name="registerSubmit">
+    </form>
+  </section>
+
+
+
+<script src="./movies.js"></script>
+<script src="./users.js"></script>
+</body>
+</html>
