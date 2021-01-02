@@ -73,6 +73,24 @@ changePassSubmit.addEventListener('click', function(event) {
 });
 
 
+// REMOVE USER
+const remUserSubmit = document.forms['remuser']['remUserSubmit'];
+remUserSubmit.addEventListener('click', function(event) {
+  event.preventDefault();
+  let token = document.getElementById('mtoken').value;
+  let pass = document.getElementById('mpassword').value;
+  if (token != '' && pass != '') {
+    const formattedFormData = {
+      token,
+      pass
+    };
+    postData('remuser', formattedFormData);
+  } else {
+    alert("data required");
+  }
+});
+
+
 // HANDLE POST REQUEST FOR SIGN IN AND REGISTER
 const postData = async (req, formattedFormData) => {
   let tHeaders = new Headers();
@@ -101,6 +119,11 @@ const postData = async (req, formattedFormData) => {
       .catch(error => console.log('error', error));
   } else if (req === 'newpass') {
     const res = await fetch('/api/v1/users/pass.php', reqOpt)
+      .then(resp => resp.json())
+      .then(res => console.log(res))
+      .catch(error => console.log('error', error));
+  } else if (req === 'remuser') {
+    const res = await fetch('/api/v1/users/rem.php', reqOpt)
       .then(resp => resp.json())
       .then(res => console.log(res))
       .catch(error => console.log('error', error));

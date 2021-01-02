@@ -10,6 +10,7 @@ class User {
     $this->conn = $db;
   }
 
+  // SIGN IN
   public function checkUser($um, $up) {
     $query = "SELECT id, email, password, name, pic, uuid FROM users WHERE email = :email";
     $stmt = $this->conn->prepare($query);
@@ -33,6 +34,7 @@ class User {
   }
 
   
+  // CHECK TOKEN
   public function checkToken($tk) {
     $query = "SELECT name, pic, uuid FROM users WHERE uuid = :uuid";
     $stmt = $this->conn->prepare($query);
@@ -50,6 +52,7 @@ class User {
   }
 
   
+  // REGISTER USER
   public function registerUser($um, $up) {
     $query = "SELECT COUNT(email) AS num FROM users WHERE email = :email";
     $stmt = $this->conn->prepare($query);
@@ -80,6 +83,7 @@ class User {
   }
 
 
+  // CHANGE PASSWORD
   public function changePassword($tk, $op, $np) {
     $query = "SELECT * FROM users WHERE uuid = :uuid";
     $stmt = $this->conn->prepare($query);
@@ -89,7 +93,6 @@ class User {
     if(!$user){
       return json_response(404, "User not found");
     } else {
-
       $validPass = password_verify($op, $user['password']);
       if ($validPass) {
           $passwordHash = password_hash($np, PASSWORD_BCRYPT, array("cost" => 12));
@@ -99,6 +102,30 @@ class User {
           $stmt->bindValue(':uuid', $tk);
           $stmt->execute();
           return json_response(200, "Password change successful");
+      } else {
+        return json_response(400, "Check password and try again");
+      }
+    }
+  }
+
+
+  // DELETE USER
+  public function removeUser($tk, $up) {
+    $query = "SELECT * FROM users WHERE uuid = :uuid";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindValue(':uuid', $tk);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    if(!$user){
+      return json_response(404, "User not found");
+    } else {
+      $validPass = password_verify($up, $user['password']);
+      if ($validPass) {
+          $query = "DELETE FROM users WHERE uuid = :uuid";
+          $stmt = $this->conn->prepare($query);
+          $stmt->bindValue(':uuid', $tk);
+          $stmt->execute();
+          return json_response(200, "User removed");
       } else {
         return json_response(400, "Check password and try again");
       }
