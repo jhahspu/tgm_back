@@ -9,7 +9,7 @@ class User {
   }
 
   public function checkUser($um, $up) {
-    $query = "SELECT id, email, password, uuid FROM users WHERE email = :email";
+    $query = "SELECT id, email, password, name, pic, uuid FROM users WHERE email = :email";
     $stmt = $this->conn->prepare($query);
     $stmt->bindValue(':email', $um);
     $stmt->execute();
@@ -25,6 +25,8 @@ class User {
         return json_encode(array(
           "status" => "success",
           "message" => "login successful",
+          "name" => $user['name'],
+          "pic" => $user['pic'],
           "uuid" => $user['uuid']
         ));
       } else {
@@ -58,16 +60,21 @@ class User {
     } else {
       $passwordHash = password_hash($up, PASSWORD_BCRYPT, array("cost" => 12));
       $token = genToken(8) . "-" . genToken(4) . "-" . genToken(4) . "-" . genToken(8);
-      $query = "INSERT INTO users (email, password, uuid) VALUES (:email, :password, :uuid)";
+      // $un = removeEmail($um);
+      $un = removeEmail($um) . "_" . genToken(6);
+      $query = "INSERT INTO users (email, password, name, pic, uuid) VALUES (:email, :password, :name, :pic, :uuid)";
       $stmt = $this->conn->prepare($query);
       $stmt->bindValue(':email', $um);
       $stmt->bindValue(':password', $passwordHash);
+      $stmt->bindValue(':name', $un);
+      $stmt->bindValue(':pic', 'np.jpg');
       $stmt->bindValue(':uuid', $token);
       $result = $stmt->execute();
       if($result){
         return json_encode(array(
           "status" => "success",
           "message" => "registration successful",
+          "name" => $un,
           "uuid" => $token
         ));
       }
@@ -75,7 +82,12 @@ class User {
   }
 }
 
-
+function removeEmail($text) {
+  list($text) = explode('@', $text);
+  $text = preg_replace('/[^a-z0-9]/i', ' ', $text);
+  $text = ucwords($text);
+  return $text;
+}
 
 function genToken($length) {  
   $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
