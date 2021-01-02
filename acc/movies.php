@@ -1,5 +1,7 @@
 <?php
 
+require 'funcs.php';
+
 class Mvs {
 
   private $conn;
@@ -32,15 +34,9 @@ class Mvs {
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_CLASS);
     if($result) {
-      return json_encode(array(
-        "status" => "success",
-        "data" => $result
-      ));
+      return json_response(200, "success", $result);
     } else {
-      return json_encode(array(
-        "status" => "error",
-        "message" => "no titles found"
-      ));
+      return json_response(404, "No titles found");
     }
   }
 
@@ -51,15 +47,9 @@ class Mvs {
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_CLASS);
     if($result) {
-      return json_encode(array(
-        "status" => "success",
-        "data" => $result
-      ));
+      return json_response(200, "success", $result);
     } else {
-      return json_encode(array(
-        "status" => "error",
-        "message" => "no titles found"
-      ));
+      return json_response(404, "No titles found");
     }
   }
 
