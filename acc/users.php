@@ -70,7 +70,7 @@ class User {
       $stmt->bindValue(':email', $um);
       $stmt->bindValue(':password', $passwordHash);
       $stmt->bindValue(':name', $un);
-      $stmt->bindValue(':pic', 'np.jpg');
+      $stmt->bindValue(':pic', 'np.webp');
       $stmt->bindValue(':uuid', $token);
       $result = $stmt->execute();
       if($result){
