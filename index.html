@@ -39,6 +39,7 @@
 
 
   <section>
+    <h3>Sign In</h3>
     <form name="signin">
       <div>
         <label for="email">Email</label>
@@ -54,6 +55,7 @@
 
 
   <section>
+    <h3>Register</h3>
     <form name="register">
       <div>
         <label for="remail">Email</label>
@@ -73,12 +75,36 @@
 
 
   <section>
+    <h3>Check Token</h3>
     <form name="checktoken">
       <div>
         <label for="token">Token</label>
         <input type="text" name="token" id="token">
       </div>
       <input type="submit" value="Check Token" name="tokenSubmit">
+    </form>
+  </section>
+
+  <section>
+    <h3>Change Password</h3>
+    <form name="changepass">
+      <div>
+        <label for="ctoken">Token</label>
+        <input type="text" name="ctoken" id="ctoken">
+      </div>
+      <div>
+        <label for="cpassword1">Old Password</label>
+        <input type="text" name="cpassword1" id="cpassword1">
+      </div>
+      <div>
+        <label for="cpassword2">New Password</label>
+        <input type="text" name="cpassword2" id="cpassword2">
+      </div>
+      <div>
+        <label for="cpassword3">Verify New Password</label>
+        <input type="text" name="cpassword3" id="cpassword3">
+      </div>
+      <input type="submit" value="Change Password" name="changePassSubmit">
     </form>
   </section>
 

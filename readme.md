@@ -6,7 +6,7 @@ New API for https://topgoodmovies.com
 - [x] registration
 - [x] sign in
 - [x] check user token
-- [ ] change pass
+- [x] change pass
 - [ ] delete account
 
 ### Movies:

@@ -16,7 +16,7 @@ class User {
     $stmt->bindValue(':email', $um);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($user === false){
+    if(!$user){
       return json_response(404, "Email not found");
     } else {
       $validPass = password_verify($up, $user['password']);
@@ -55,8 +55,8 @@ class User {
     $stmt = $this->conn->prepare($query);
     $stmt->bindValue(':email', $um);
     $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($row['num'] > 0){
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    if($user){
       return json_response(400, "Email already in use");
     } else {
       $passwordHash = password_hash($up, PASSWORD_BCRYPT, array("cost" => 12));
@@ -75,6 +75,32 @@ class User {
           "name" => $un,
           "uuid" => $token
         ));
+      }
+    }
+  }
+
+
+  public function changePassword($tk, $op, $np) {
+    $query = "SELECT * FROM users WHERE uuid = :uuid";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindValue(':uuid', $tk);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    if(!$user){
+      return json_response(404, "User not found");
+    } else {
+
+      $validPass = password_verify($op, $user['password']);
+      if ($validPass) {
+          $passwordHash = password_hash($np, PASSWORD_BCRYPT, array("cost" => 12));
+          $query = "UPDATE users SET password = :password WHERE uuid = :uuid";
+          $stmt = $this->conn->prepare($query);
+          $stmt->bindValue(':password', $passwordHash);
+          $stmt->bindValue(':uuid', $tk);
+          $stmt->execute();
+          return json_response(200, "Password change successful");
+      } else {
+        return json_response(400, "Check password and try again");
       }
     }
   }

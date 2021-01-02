@@ -52,6 +52,27 @@ tokenSubmit.addEventListener('click', function(event) {
 });
 
 
+// CHANGE PASSWORD
+const changePassSubmit = document.forms['changepass']['changePassSubmit'];
+changePassSubmit.addEventListener('click', function(event) {
+  event.preventDefault();
+  let token = document.getElementById('ctoken').value;
+  let oldpass = document.getElementById('cpassword1').value;
+  let newpass = document.getElementById('cpassword2').value;
+  let cnewpass = document.getElementById('cpassword3').value;
+  if (token != '' && oldpass != '' && newpass == cnewpass) {
+    const formattedFormData = {
+      token,
+      oldpass,
+      newpass
+    };
+    postData('newpass', formattedFormData);
+  } else {
+    alert("data required");
+  }
+});
+
+
 // HANDLE POST REQUEST FOR SIGN IN AND REGISTER
 const postData = async (req, formattedFormData) => {
   let tHeaders = new Headers();
@@ -75,6 +96,11 @@ const postData = async (req, formattedFormData) => {
       .catch(error => console.log('error', error));
   } else if (req === 'token') {
     const res = await fetch('/api/v1/users/tkn.php', reqOpt)
+      .then(resp => resp.json())
+      .then(res => console.log(res))
+      .catch(error => console.log('error', error));
+  } else if (req === 'newpass') {
+    const res = await fetch('/api/v1/users/pass.php', reqOpt)
       .then(resp => resp.json())
       .then(res => console.log(res))
       .catch(error => console.log('error', error));
