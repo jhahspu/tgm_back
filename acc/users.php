@@ -56,7 +56,7 @@ class User {
     $stmt->bindValue(':email', $um);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($user){
+    if($user['num'] > 0){
       return json_response(400, "Email already in use");
     } else {
       $passwordHash = password_hash($up, PASSWORD_BCRYPT, array("cost" => 12));
