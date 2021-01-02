@@ -34,9 +34,19 @@ class User {
 
   
   public function checkToken($tk) {
-    // TODO
-    // Should return an OK for when trying to insert into DB
-
+    $query = "SELECT name, pic, uuid FROM users WHERE uuid = :uuid";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindValue(':uuid', $tk);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($user) {
+      return json_response(200, "Found you!", array(
+        "name" => $user['name'],
+        "pic" => $user['pic']
+      ));
+    } else {
+      return json_response(404, "Invalid token ");
+    }
   }
 
   
@@ -50,7 +60,7 @@ class User {
       return json_response(400, "Email already in use");
     } else {
       $passwordHash = password_hash($up, PASSWORD_BCRYPT, array("cost" => 12));
-      $token = genToken(8) . "-" . genToken(4) . "-" . genToken(4) . "-" . genToken(8);
+      $token = genToken(32);
       $un = removeEmail($um) . "_" . genToken(6);
       $query = "INSERT INTO users (email, password, name, pic, uuid) VALUES (:email, :password, :name, :pic, :uuid)";
       $stmt = $this->conn->prepare($query);

@@ -36,6 +36,22 @@ registerSubmit.addEventListener('click', function(event) {
 });
 
 
+// CHECKTOKEN
+const tokenSubmit = document.forms['checktoken']['tokenSubmit'];
+tokenSubmit.addEventListener('click', function(event) {
+  event.preventDefault();
+  let token = document.getElementById('token').value;
+  if (token != '') {
+    const formattedFormData = {
+      token
+    };
+    postData('token', formattedFormData);
+  } else {
+    alert("token required");
+  }
+});
+
+
 // HANDLE POST REQUEST FOR SIGN IN AND REGISTER
 const postData = async (req, formattedFormData) => {
   let tHeaders = new Headers();
@@ -54,6 +70,11 @@ const postData = async (req, formattedFormData) => {
       .catch(error => console.log('error', error));
   } else if (req === 'register') {
     const res = await fetch('/api/v1/users/reg.php', reqOpt)
+      .then(resp => resp.json())
+      .then(res => console.log(res))
+      .catch(error => console.log('error', error));
+  } else if (req === 'token') {
+    const res = await fetch('/api/v1/users/tkn.php', reqOpt)
       .then(resp => resp.json())
       .then(res => console.log(res))
       .catch(error => console.log('error', error));
