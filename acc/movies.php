@@ -4,19 +4,9 @@ require 'funcs.php';
 
 class Mvs {
 
+  
   private $conn;
 
-  public $id;
-  public $tmdb_id;
-  public $title;
-  public $tagline;
-  public $release_date;
-  public $runtime;
-  public $genres;
-  public $overview;
-  public $poster;
-  public $backdrop;
-  public $trailers;
 
   public function __construct($db) {
     $this->conn = $db;
