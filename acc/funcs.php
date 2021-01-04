@@ -1,6 +1,15 @@
 <?php
 
-// RETURN JSON RESPONSE WITH HEADERS
+
+/** Return JSON response with status codes
+ * 200 - OK
+ * 201 - Created
+ * 204 - Updated, shouldn't contain message
+ * 400 - Bad request
+ * 404 - Not found
+ * 405 - Method not allowed
+ * 500 - Server Internal error
+ */
 function json_response($code = 200, $message = null, $data = null) {
   header_remove();
   http_response_code($code);
@@ -8,15 +17,12 @@ function json_response($code = 200, $message = null, $data = null) {
   header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
   header('Content-Type: application/json');
   $status = array(
-    // SUCCESS
       200 => 'OK',
       201 => 'CREATED',
       204 => 'UPDATED',
-    // CLIENT SIDE ERROR
       400 => 'BAD REQUEST',
       404 => 'NOT FOUND',
       405 => 'METHOD NOT ALLOWED',
-    // 5xx SERVER ERROR
       500 => 'INTERNAL SERVER ERROR'
       );
   header('Status: '.$status[$code]);
@@ -28,7 +34,9 @@ function json_response($code = 200, $message = null, $data = null) {
 }
 
 
-// RETURN STRING BEFORE '@...'
+/**
+ * Return name from email before @
+ */
 function removeEmail($text) {
   list($text) = explode('@', $text);
   $text = preg_replace('/[^a-z0-9]/i', ' ', $text);
@@ -37,7 +45,9 @@ function removeEmail($text) {
 }
 
 
-// GENERATE A RANDOM TOKEN WITH ANY LENGTH
+/**
+ * Generate custom length random token
+ */
 function genToken($length) {  
   $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   $charactersLength = strlen($characters);
@@ -47,3 +57,7 @@ function genToken($length) {
   }
   return $randomString;
 }
+
+
+
+

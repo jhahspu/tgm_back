@@ -14,4 +14,8 @@ if (empty($data->token)) return json_response(400, "Token required");
 
 
 $result = $usr->checkToken($data->token);
-echo $result;
+if ($result) {
+  echo json_response(200, "user found");
+} else {
+  echo json_response(404, "user not found");
+}

@@ -91,6 +91,33 @@ remUserSubmit.addEventListener('click', function(event) {
 });
 
 
+// UPLOAD USER PROFILE PIC
+const avatarForm = document.forms['avatarform'];
+avatarForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const files = document.querySelector('#avatarfile').files;
+  const formData = new FormData();
+  for (let i=0; i<files.length; i++){
+    let file = files[i];
+    formData.append('files[]', file);
+  }
+  postAvatar(formData);
+})
+
+
+// POST AVATAR
+const postAvatar = async(formattedFormData) => {
+  let reqOpt = {
+    method: 'POST',
+    body: formattedFormData
+  }
+  const res = await fetch('/api/v1/users/upi.php', reqOpt)
+    .then(resp => resp.json())
+    .then(res => console.log(res))
+    .catch(error => console.log(error));
+}
+
+
 // HANDLE POST REQUEST FOR SIGN IN AND REGISTER
 const postData = async (req, formattedFormData) => {
   let tHeaders = new Headers();
