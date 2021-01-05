@@ -1,6 +1,6 @@
 <?php
 
-
+include 'acc.php';
 /** Return JSON response with status codes
  * 200 - OK
  * 201 - Created
@@ -59,5 +59,33 @@ function genToken($length) {
 }
 
 
-
+/**
+ * Get Movie Details
+ * @param string $mId - tMDb id
+ */
+function getDataFromTmdb($mId) {
+  $temp = dbDet("live");
+  $tmdbKey = $temp[5];
+  $curl = curl_init();
+  // 'https://api.themoviedb.org/3/movie/{}/videos?api_key={}&language=en-US'
+  $getMovie = "https://api.themoviedb.org/3/movie/" . $mId . "?api_key=" . $tmdbKey . "&language=en-US";
+  curl_setopt_array($curl, array(
+    CURLOPT_URL => $getMovie,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => "",
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "GET",
+    CURLOPT_POSTFIELDS => "",
+    CURLOPT_HTTPHEADER => array(
+       "Content-Type: application/json",
+       "cache-control: no-cache"
+    ),
+  ));
+  $response = curl_exec($curl);
+  $data = json_decode($response, true);
+  curl_close($curl);
+  return json_response(200, "success", $data);
+}
 

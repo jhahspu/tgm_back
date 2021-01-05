@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!in_array($file_ext, $extensions)) {
       echo json_response(405, "Files accepted: jpeg, jpg, png and webp");
     } else {
-      if ($_POST['token']) {
+      if (isset($_POST['token'])) {
         $token = $_POST['token'];
         $database = new Database();
         $db = $database->connect();
