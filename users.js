@@ -4,12 +4,14 @@ signInSubmit.addEventListener('click', function(event) {
   event.preventDefault();
   let email = document.getElementById('email').value;
   let pass = document.getElementById('password').value;
+  let req = 'signin';
   if (email != '' && pass != '') {
     const formattedFormData = {
       email,
-      pass
+      pass,
+      req
     };
-    postData('signin', formattedFormData);
+    postData(req, formattedFormData);
   } else {
     alert("empty sign in fields !");
   }
@@ -23,13 +25,14 @@ registerSubmit.addEventListener('click', function(event) {
   let email = document.getElementById('remail').value;
   let pass = document.getElementById('rpassword1').value;
   let passv = document.getElementById('rpassword2').value;
-
+  let req = 'register';
   if (email != '' && pass != '' && pass === passv) {
     const formattedFormData = {
       email,
-      pass
+      pass,
+      req
     };
-    postData('register', formattedFormData);
+    postData(req, formattedFormData);
   } else {
     alert("register fields wrong !");
   }
@@ -135,7 +138,7 @@ const postData = async (req, formattedFormData) => {
       .then(res => console.log(res))
       .catch(error => console.log('error', error));
   } else if (req === 'register') {
-    const res = await fetch('/api/v1/users/reg.php', reqOpt)
+    const res = await fetch('/api/v1/users/lgn.php', reqOpt)
       .then(resp => resp.json())
       .then(res => console.log(res))
       .catch(error => console.log('error', error));
