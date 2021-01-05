@@ -49,8 +49,8 @@ class User {
     $stmt = $this->conn->prepare($query);
     $stmt->bindValue(':uuid', $tk);
     $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($user['uuid'] == $tk) {
+    $token = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($token) {
       return true;
     } else {
       return false;
@@ -151,6 +151,27 @@ class User {
       } else {
         return json_response(400, "Check password and try again");
       }
+    }
+  }
+
+
+  /**
+   * Change user avatar if token passed
+   * @param string $tk - user token
+   * @param string $na - new avatar name
+   * @return Obj containing updated infos about user
+   */
+  public function changeUserAvatar($tk, $na) {
+    $passed = $this->checkToken($tk);
+    if ($passed) {
+      $query = "UPDATE users SET pic = :pic WHERE uuid = :uuid";
+      $stmt = $this->conn->prepare($query);
+      $stmt->bindValue(':pic', $na);
+      $stmt->bindValue(':uuid', $tk);
+      $stmt->execute();
+      return true;
+    } else {
+      return false;
     }
   }
 }

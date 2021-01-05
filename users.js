@@ -99,11 +99,13 @@ const avatarForm = document.forms['avatarform'];
 avatarForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const files = document.querySelector('#avatarfile').files;
+  const token = document.querySelector('#atoken').value;
   const formData = new FormData();
   for (let i=0; i<files.length; i++){
     let file = files[i];
     formData.append('files[]', file);
   }
+  formData.append('token', token);
   postAvatar(formData);
 })
 
