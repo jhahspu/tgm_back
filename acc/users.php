@@ -1,15 +1,20 @@
 <?php
 
-require 'funcs.php';
+
+include_once 'funcs.php';
+
 
 class User {
 
+
   private $conn;
+
 
   public function __construct($db) {
     $this->conn = $db;
   }
 
+  
   /**
    * Check user email & password in DB and return user infos
    * @param string $um user email

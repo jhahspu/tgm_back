@@ -1,7 +1,9 @@
 <?php
 
-  require_once("acc.php");
 
+  require_once 'acc.php';
+
+  
   class Database {
     private $dbcred;
     private $hostname;

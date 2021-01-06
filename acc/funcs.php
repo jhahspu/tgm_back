@@ -1,6 +1,9 @@
 <?php
 
-include 'acc.php';
+
+include_once 'acc.php';
+
+
 /** Return JSON response with status codes
  * 200 - OK
  * 201 - Created

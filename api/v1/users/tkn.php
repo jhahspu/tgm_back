@@ -1,4 +1,6 @@
 <?php
+
+
 include_once '../../../acc/database.php';
 include_once '../../../acc/users.php';
 include_once '../../../acc/funcs.php';

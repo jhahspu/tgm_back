@@ -1,6 +1,8 @@
 <?php
 
-include 'funcs.php';
+
+include_once 'funcs.php';
+
 
 class Mvs {
 
@@ -51,4 +53,22 @@ class Mvs {
     }
   }
 
+
+  /**
+   * Check if tMDb ID already exists
+   * @param string $mid
+   * @return bool
+   */
+  public function checkTMDbId($mID) {
+    $query = "SELECT tmdb_id FROM movies WHERE tmdb_id = :tmdb";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindValue(':tmdb', $mID);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($result) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
