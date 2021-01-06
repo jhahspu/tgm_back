@@ -3,7 +3,6 @@
 
 include_once 'acc.php';
 
-
 /** Return JSON response with status codes
  * 200 - OK
  * 201 - Created
@@ -89,6 +88,21 @@ function getDataFromTmdb($mId) {
   $response = curl_exec($curl);
   $data = json_decode($response, true);
   curl_close($curl);
-  return json_response(200, "success", $data);
+  $new_data = array(
+    "tmdb_id" => $data['id'],
+    "title" => $data['title'], 
+    "tagline" => $data['tagline'], 
+    "release_date" => $data['release_date'], 
+    "runtime" => $data['runtime'], 
+    "genres" => $data['genres'],
+    "overview" => $data['overview'], 
+    "vote_average" => $data['vote_average'], 
+    "poster_path" => $data['poster_path'],
+    "backdrop_path" => $data['backdrop_path']
+  );
+  $copy_from = 'https://image.tmdb.org/t/p/w300_and_h450_bestv2' . $data['poster_path'];
+  $paste_to = ROOT . '/p' . $data['poster_path'];
+  copy($copy_from, $paste_to);
+  return json_response(200, "success", $new_data);
 }
 

@@ -4,6 +4,7 @@
 include_once '../../../acc/database.php';
 include_once '../../../acc/users.php';
 include_once '../../../acc/movies.php';
+include_once '../../../config.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -21,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_response(405, "Movie already in the database");
           } else {
             $res = getDataFromTmdb($mId);
+            // TODO prepare data to insert into DB
             echo $res;
           }
       } else {
