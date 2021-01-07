@@ -106,3 +106,105 @@ function getDataFromTmdb($mId) {
   return json_response(200, "success", $new_data);
 }
 
+
+/**
+ * Create JWT Token
+ * @param string $uuid 
+ * @param string $name
+ * @param string $pic
+ * @return JSON Obj JWT
+ */
+function encodeJWT($uuid, $name, $pic) {
+  $dbDet = dbDet("local");
+  $private_key = $dbDet[6];
+  $iss = $dbDet[7];
+  $exp = time() + 60*60;
+  $header = json_encode([
+    'typ' => 'JWT',
+    'alg' => 'HS256'
+  ]);
+  $payload = json_encode([
+    'iss' => $iss,
+    'exp' => $exp,
+    'uuid' => $uuid,
+    'name' => $name,
+    'pic' => $pic
+  ]);
+  $base64UrlHeader = encode64Url($header);
+  $base64UrlPayload = encode64Url($payload);
+  $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, $private_key, true);
+  $base64UrlSignature = encode64Url($signature);
+  $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
+  return $jwt;
+}
+
+
+/**
+ * Check JWT
+ * @param JSON $encodedJWT
+ * @return boolean
+ */
+function checkJWT($encodedJWT) {
+  $dbDet = dbDet("live");
+  $private_key = $dbDet[6];
+  $parts = explode('.', $encodedJWT);
+  if (count($parts) === 3) {
+    $decodedHeader = base64_decode($parts[0]);
+    $decodedPayload = base64_decode($parts[1]);
+    
+    $expiration = json_decode($decodedPayload)->exp;
+
+    $base64UrlHeader = encode64Url($decodedHeader);
+    $base64UrlPayload = encode64Url($decodedPayload);
+    $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, $private_key, true);
+    $base64UrlSignature = encode64Url($signature);
+    
+    $signatureValid = ($base64UrlSignature === $parts[2]);
+
+    if ($signatureValid) {
+      if ($expiration > time()) {
+        return array("JWT" => "VALID");
+      } else {
+        return array("JWT" => "INVALID");
+      }
+    } else {
+      return array("JWT" => "INVALID");
+    }
+  } else {
+    return array("JWT" => "INVALID");
+  }
+}
+
+
+/**
+ * Decode JWT
+ * @param JSON $encodedJWT
+ * @return boolean
+ */
+function decodeJWT($encodedJWT) {
+  $parts = explode('.', $encodedJWT);
+
+  $decodedHeader = base64_decode($parts[0]);
+  $decodedPayload  = base64_decode($parts[1]);
+
+  return json_encode(array(
+    'decoded_header' => $decodedHeader,
+    'decoded_payload' => $decodedPayload
+  ));
+
+  // return array(
+  //   'header' => $parts[0],
+  //   'payload' => $parts[1],
+  //   'signature' => $parts[2] 
+  // );
+}
+
+
+/**
+ * Base 64 URL Encoder
+ * @param string $decodedStr
+ * @return base64 encoded string
+ */
+function encode64Url($decodedStr) {
+  return str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($decodedStr));
+}
