@@ -9,6 +9,7 @@ New API for https://topgoodmovies.com
 - [x] change pass
 - [x] delete account
 - [x] user avatar
+- [x] JWT tests
 
 ### Movies:
 - [x] random titles
