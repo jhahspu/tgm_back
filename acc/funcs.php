@@ -183,20 +183,14 @@ function checkJWT($encodedJWT) {
  */
 function decodeJWT($encodedJWT) {
   $parts = explode('.', $encodedJWT);
-
-  $decodedHeader = base64_decode($parts[0]);
-  $decodedPayload  = base64_decode($parts[1]);
-
-  return json_encode(array(
-    'decoded_header' => $decodedHeader,
-    'decoded_payload' => $decodedPayload
-  ));
-
-  // return array(
-  //   'header' => $parts[0],
-  //   'payload' => $parts[1],
-  //   'signature' => $parts[2] 
-  // );
+  $checkjwt = checkJWT($encodedJWT);
+  if ($checkjwt) {
+    // $decodedHeader = base64_decode($parts[0]);
+    $decodedPayload  = base64_decode($parts[1]);
+    return json_response(200, "success", json_decode($decodedPayload));
+  } else {
+    return json_response(405, "Get out of here");
+  }
 }
 
 

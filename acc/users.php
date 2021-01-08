@@ -79,7 +79,7 @@ class User {
       return json_response(400, "Email already in use");
     } else {
       $passwordHash = password_hash($up, PASSWORD_BCRYPT, array("cost" => 12));
-      $token = genToken(32);
+      $token = genToken(8) . '-' . genToken(4) . '-' . genToken(4) . '-' . genToken(4) . '-' . genToken(8);
       $un = removeEmail($um) . "_" . genToken(6);
       $query = "INSERT INTO users (email, password, name, pic, uuid) VALUES (:email, :password, :name, :pic, :uuid)";
       $stmt = $this->conn->prepare($query);
