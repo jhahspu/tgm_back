@@ -15,3 +15,5 @@ New API for https://topgoodmovies.com
 - [x] random titles
 - [x] latest titles
 - [ ] check/add new titles
+
+- [x] mockup created
