@@ -5,11 +5,14 @@ include_once '../../../acc/funcs.php';
 
 
 $encodedJWT = encodeJWT('my uuid', 'John Q', 'john avatar');
-setcookie('encodedJWT', $encodedJWT, time()+3600, "/", "localhost", false, true);
+
 
 
 $decodedJWT = decodeJWT($encodedJWT);
 echo $decodedJWT;
+
+
+setcookie('encodedJWT', $encodedJWT, time()+3600, "/", "localhost", false, true);
 
 
 
