@@ -1,7 +1,7 @@
 <?php
 
 
-include_once 'funcs.php';
+include_once "funcs.php";
 
 
 class Mvs {
@@ -21,7 +21,7 @@ class Mvs {
    * @return Obj and status code with message 
    */
   public function getRnd($gen) {
-    if(empty($gen) || $gen == 'any') {
+    if(empty($gen) || $gen == "any") {
       $condition = "";
     } else {
       $condition = " WHERE genres like '%" . $gen . "%'";
@@ -62,7 +62,7 @@ class Mvs {
   public function checkTMDbId($mID) {
     $query = "SELECT tmdb_id FROM movies WHERE tmdb_id = :tmdb";
     $stmt = $this->conn->prepare($query);
-    $stmt->bindValue(':tmdb', $mID);
+    $stmt->bindValue(":tmdb", $mID);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($result) {

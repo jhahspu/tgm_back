@@ -1,7 +1,7 @@
 <?php
 
 
-  require_once 'acc.php';
+  require_once "acc.php";
 
   
   class Database {
@@ -29,7 +29,7 @@
         $this->conn = new PDO($this->dsn, $this->username, $this->password);
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       } catch (PDOException $e) {
-        echo 'Connection Error: ' . $e->getMessage();
+        echo "Connection Error: " . $e->getMessage();
       }
 
       return $this->conn;
