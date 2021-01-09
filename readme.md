@@ -8,6 +8,6 @@ New API for https://topgoodmovies.com
 
 
 ### Movies:
-- [ ] Random Titles
+- [x] Random Titles
 - [ ] Latest Titles
 - [ ] ADD a New Title

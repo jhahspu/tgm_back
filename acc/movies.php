@@ -31,7 +31,7 @@ class Mvs {
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_CLASS);
     if($result) {
-      return json_response(200, "success", $result);
+      return json_response(200, "info", $result);
     } else {
       return json_response(404, "No titles found");
     }

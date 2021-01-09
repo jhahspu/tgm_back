@@ -1,6 +1,24 @@
+$main-0: hsla(0, 0, 2%, 1);
+$main-1: hsla(0, 0, 12%, 1);
+$main-2: hsla(0, 0, 22%, 1);
+$main-3: hsla(0, 0, 32%, 1);
+$main-4: hsla(0, 0, 42%, 1);
+$main-5: hsla(0, 0, 52%, 1);
+$main-6: hsla(0, 0, 62%, 1);
+$main-7: hsla(0, 0, 72%, 1);
+$main-8: hsla(0, 0, 82%, 1);
+$main-9: hsla(0, 0, 92%, 1);
+
+$acc: hsla(144, 73, 36, 1);
+$danger: hsla(354, 73, 36, 1);
+$info: hsla(214, 73, 36, 1);
+
+$box-shadow: 10px 8px 20px 0 rgba(0,0,0,.15);
 
 
-// GENERAL
+
+
+
 *, *::before, *::after {
 	margin: 0;
 	padding: 0;
@@ -8,7 +26,7 @@
 }
 
 :root {
-
+	background-color: $main-0;
 	overflow-x: hidden;
 	overflow-y: scroll;
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -17,47 +35,352 @@
 
 ul { list-style: none; }
 img {	width: 100%; }
+svg {
+	width: 2rem;
+	height: 2rem;
+	pointer-events: none;
+	path {
+		fill: currentColor;
+	}
+}
+button {
+	border: none;
+	border-radius: 0;
+	outline: none;
+	font-size: 1rem;
+	cursor: pointer;
+}
 
-nav {
+
+
+
+
+@keyframes toast {
+	0% { opacity: 0; }
+	10% { opacity: 1; }
+	90% { opacity: 1; }
+	100% { opacity: 0; }
+}
+@keyframes fadein {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+
+
+
+
+.nav {
 	position: fixed;
 	top: 2%;
 	right: 2%;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1px;
+	background: $main-6;
+	border-radius: .25rem;
+	border-bottom-left-radius: 1rem;
+	box-shadow: $box-shadow;
+	overflow: hidden;
+	z-index: 999;
+
+	.nav-item {
+		position: relative;
+		padding: .75rem 1rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: transparent;
+		transition: filter .2s ease-in-out;
+
+		span {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			display: grid;
+			place-content: center;
+			pointer-events: none;
+
+			&.hidden {
+				display: none;
+			}
+
+			svg {
+	
+				path {
+					animation: .5s forwards fadein;
+				}
+			}
+		}
+
+		svg {
+			width: 1.5rem;
+			height: 1.5rem;
+		}
+
+		&:hover {
+			filter: brightness(80%);
+		}
+
+		&:first-of-type {
+			background-color: $acc;
+			svg {
+				path {
+					fill: $main-9;
+				}
+			}
+		}
+	}
 }
+
+
+
+
 
 #toast {
 	position: fixed;
 	left: 50%;
 	bottom: 2%;
-	transform: translateX(-50%);
+	overflow: hidden;
 	padding: .5rem 1rem;
+	color: $main-9;
 	background-color: rgba(0,0,0,.85);
+	box-shadow: $box-shadow;
 	border-radius: .25rem;
-	color: #fff;
+	user-select: none;
+	opacity: 0;
+	transform: translateX(-50%);
+	animation: 5s forwards toast;
 	z-index: 999;
 
 	&.success {
-		background-color: rgba(11, 87, 11, .85);
+		background-color: $acc;
 	}
 	&.danger {
-		background-color: rgba(87, 11, 11, .85);
+		background-color: $danger;
+	}
+	&.info {
+		background-color: $info;
 	}
 }
 
-.wrapper {
-
-	width: 90%;
-	max-width: 976px;
+.container {
+	width: 100%;
 	min-height: 100vh;
-	margin: 0 auto;
 
-	// border: 2px dashed red;
+	.wrapper {
+		width: 100%;
+		max-width: 976px;
+		min-height: 100vh;
+		margin: 0 auto;
+		padding: 0 2rem;
 
-	h1 {
-		padding: 3rem 0;
+		.head {
+			padding: 4rem 0 2.5rem;
+			user-select: none;
+			h1 {
+				line-height: 1;
+			}
+			h3 {
+				font-weight: 400;
+			}
+		}
+		
+
+
+		section {
+
+			&#rnd-titles {
+				
+				.slide {
+					position: relative;
+					margin: 0 -2rem;
+					padding: 40px 2rem;
+					overflow-x: hidden;
+					opacity: 0;
+					animation: 1s forwards fadein;
+
+					.slider {
+						width: 100%;
+						display: flex;
+						transition: all .7s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+						movie-card {
+							flex: 1 0 200px;
+							overflow: hidden;
+							border-radius: .25rem;
+							box-shadow: $box-shadow;
+
+							&:not(:last-of-type) {
+								margin-right: 25px;
+							}
+
+							.mvc {
+								transition: all .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+		
+								h3 {
+									height: 2.8rem;
+									margin: .75rem 0;
+									padding: 0 0.75rem;
+									overflow: hidden;
+									display: -webkit-box;
+									-webkit-line-clamp: 2;
+									-webkit-box-orient: vertical;
+									text-overflow: ellipsis;
+									word-break: break-word;
+									line-height: 1.4rem;
+									font-size: 1.2rem;
+									font-weight: 400;
+									text-align: center;
+								}
+		
+								.mvb {
+									display: grid;
+									grid-template-columns: 2fr 1fr;
+		
+									button {
+										display: flex;
+										justify-content: center;
+										align-items: center;
+										padding: .75rem 0;
+										background-color: inherit;
+										color: inherit;
+										transition: all .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+										&:hover {
+											filter: brightness(80%);
+										}
+
+										&:first-of-type {
+
+											span {
+												margin-right: .5rem;
+											}
+										}
+
+										span {
+											display: grid;
+											place-content: center;
+
+											svg {
+												width: 1.4rem;
+												height: 1.4rem;
+
+												path {
+													fill: currentColor;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+
+					.btn {
+						position: absolute;
+						top: 50%;
+						width: 2.5rem;
+						height: 4rem;
+						display: grid;
+						place-content: center;
+						color: $main-9;
+						background: rgba(0,0,0,.4);
+						border: 2px solid $main-9;
+						border-radius: .25rem;
+						outline: none;
+						opacity: .4;
+						transform: translateY(-50%);
+						transition: all .2s ease-in-out;
+
+						&.btn-prev {
+							left: .5rem;
+						}
+
+						&.btn-next {
+							right: .5rem;
+						}
+
+						&:hover {
+							background: rgba(0,0,0,.8);
+							opacity: 1;
+						}
+					}
+				}
+			}
+		}
+
 	}
+}
 
-	section {
-		border-bottom: 1px solid rgba(0,0,0,.15);
+
+
+
+
+$theme-light: (
+	container: (
+		bg: #fff,
+		color: $main-1
+	),
+	nav-item: (
+		bg: $main-9,
+		color: $main-1
+	),
+	mvc: (
+		bg: $main-9,
+		color: $main-1
+	),
+	mvb: (
+		bg: $main-9,
+		color: $main-1
+	)
+);
+
+$theme-dark: (
+	container: (
+		bg: $main-0,
+		color: $main-8
+	),
+	nav-item: (
+		bg: $main-2,
+		color: $main-8
+	),
+	mvc: (
+		bg: $main-2,
+		color: $main-8
+	),
+	mvb: (
+		bg: $main-2,
+		color: $main-8
+	)
+);
+
+@mixin themable($theme-name, $theme-map) {
+	.#{$theme-name} {
+		@each $section, $map in $theme-map {
+				.#{$section} {
+						background-color: map-get($map, bg);
+						color: map-get($map, color);
+				}
+			}
 	}
+}
 
+@include themable(theme-light, $theme-light);
+@include themable(theme-dark, $theme-dark);
+
+*::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+*::-webkit-scrollbar-corner,
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: $main-7;
+  border-radius: 0.5rem;
+  border: 1px solid $main-4;
 }

@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($_POST['req'] === 'rnd-titles'){
       
-      // TODO
       $database = new Database();
       $db = $database->connect();
       $mvs = new Mvs($db);
@@ -22,26 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
   }
-  
-
 
 } else {
   header("Location: /");
   die();
 }
-
-
-
-
-
-// $headerCookies = explode("; ", getallheaders()["Cookie"]);
-// $cookies = array();
-// foreach($headerCookies as $itm) {
-//   list($key, $val) = explode("=", $itm, 2);
-//   $cookies[$key] = $val;
-// }
-
-
-
-
-
