@@ -3,11 +3,11 @@
 New API for https://topgoodmovies.com
 
 ### Users:
-- [ ] registration / set JWT cookie
-- [ ] sign in using JWT cookie
+- [ ] Sign UP / return JWT
+- [ ] Sign IN / return JWT
 
 
 ### Movies:
-- [ ] random titles
-- [ ] latest titles
-- [ ] check/add new titles
+- [ ] Random Titles
+- [ ] Latest Titles
+- [ ] ADD a New Title

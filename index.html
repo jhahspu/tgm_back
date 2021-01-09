@@ -3,161 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/css/style.min.css">
   <title>htdocs</title>
-
-  <style>
-    section {
-      padding: 1rem 0;
-    }
-    .json {
-      padding: 1rem;
-      max-height: 10rem;
-      overflow-y: scroll;
-      border: 1px solid #aea;
-    }
-    pre {
-      white-space: pre-line;
-    }
-  </style>
 </head>
 <body>
+
+  <nav>
+    <button id="refresh-btn">Refresh</button>    
+    <button id="signin-btn">Sign In</button>
+  </nav>
   
-  <h1>hi.</h1>
+  <div class="wrapper">
 
-  <section >
-    <h3>Random</h3>
-    <button id="btn-rnd">Get Movies</button>
-    <div id="res-movies"></div>
-  </section>
+    <h1>TGM</h1>
 
-
-  <section>
-    <h3>Latest</h3>
-    <button id="btn-ltst">Get Latest</button>
-    <div id="res-latest"></div>
-  </section>
-
-
-  <section>
-    <h3>Sign In</h3>
-    <form name="signin">
-      <div>
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email" required>
-      </div>
-      <div>
-        <label for="password">Password</label>
-        <input type="text" name="password" id="password" required>
-      </div>
-      <input type="submit" value="Sign In" name="signInSubmit">
-    </form>
-  </section>
-
-
-  <section>
-    <h3>Register</h3>
-    <form name="register">
-      <div>
-        <label for="remail">Email</label>
-        <input type="text" name="remail" id="remail">
-      </div>
-      <div>
-        <label for="rpassword1">Password</label>
-        <input type="text" name="rpassword1" id="rpassword1">
-      </div>
-      <div>
-        <label for="rpassword2">Verify Password</label>
-        <input type="text" name="rpassword2" id="rpassword2">
-      </div>
-      <input type="submit" value="Register" name="registerSubmit">
-    </form>
-  </section>
-
-
-  <section>
-    <h3>Check Token</h3>
-    <form name="checktoken">
-      <div>
-        <label for="token">Token</label>
-        <input type="text" name="token" id="token">
-      </div>
-      <input type="submit" value="Check Token" name="tokenSubmit">
-    </form>
-  </section>
-
-  <section>
-    <h3>Change Password</h3>
-    <form name="changepass">
-      <div>
-        <label for="ctoken">Token</label>
-        <input type="text" name="ctoken" id="ctoken">
-      </div>
-      <div>
-        <label for="cpassword1">Old Password</label>
-        <input type="text" name="cpassword1" id="cpassword1">
-      </div>
-      <div>
-        <label for="cpassword2">New Password</label>
-        <input type="text" name="cpassword2" id="cpassword2">
-      </div>
-      <div>
-        <label for="cpassword3">Verify New Password</label>
-        <input type="text" name="cpassword3" id="cpassword3">
-      </div>
-      <input type="submit" value="Change Password" name="changePassSubmit">
-    </form>
-  </section>
-
-  <section>
-    <h3>Remove User</h3>
-    <form name="remuser">
-      <div>
-        <label for="mtoken">Token</label>
-        <input type="text" name="mtoken" id="mtoken">
-      </div>
-      <div>
-        <label for="mpassword">Password</label>
-        <input type="text" name="mpassword" id="mpassword">
-      </div>
-      <input type="submit" value="Remove user" name="remUserSubmit">
-    </form>
-  </section>
-
-  <section>
-    <h3>Change Avatar</h3>
-    <form name="avatarform" method="post" enctype="multipart/form-data">
-      <div>
-        <label for="atoken">Token</label>
-        <input type="text" name="atoken" id="atoken">
-      </div>
-      <div>
-        <label for="avatarfile">File</label>
-        <input type="file" name="avatarfile" id="avatarfile" />
-      </div>
-      <input type="submit" value="Upload File" name="avatarsubmit" />
-    </form>
-  </section>
-
-
-  <section>
-    <h3>CURL Movie from tmdb</h3>
-    <form name="getmovie" method="post">
-      <div>
-        <label for="gmtoken">Token</label>
-        <input type="text" name="gmtoken" id="gmtoken">
-      </div>
-      <div>
-        <label for="tmdbid">tMDB ID</label>
-        <input type="text" name="tmdbid" id="tmdbid">
-      </div>
-      <input type="submit" value="Get Movie Details"/>
-    </form>
-    <div id="got-tmdb-movie"></div>
-  </section>
+      <section id="rnd-titles"></section>
 
 
 
-<script src="./movies.js"></script>
-<script src="./users.js"></script>
+  </div>
+  
+
+<script src="./index.js"></script>
 </body>
 </html>

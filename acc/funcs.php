@@ -2,7 +2,6 @@
 
 
 include_once "acc.php";
-  $locale = "local";
 
 
 /** Return JSON response with status codes
@@ -68,8 +67,8 @@ function genToken($length) {
  * @param string $mId - tMDb id
  */
 function getDataFromTmdb($mId) {
-  $temp = dbDet("live");
-  $tmdbKey = $temp[5];
+  $dbDet = dbDet();
+  $tmdbKey = $dbDet[5];
   $curl = curl_init();
   // "https://api.themoviedb.org/3/movie/{}/videos?api_key={}&language=en-US"
   $getMovie = "https://api.themoviedb.org/3/movie/" . $mId . "?api_key=" . $tmdbKey . "&language=en-US";
@@ -117,7 +116,7 @@ function getDataFromTmdb($mId) {
  * @return JSON Obj JWT
  */
 function encodeJWT($uuid, $name, $pic) {
-  $dbDet = dbDet($GLOBALS["locale"]);
+  $dbDet = dbDet();
   $private_key = $dbDet[6];
   $iss = $dbDet[7];
   $exp = time() + 60*60;
@@ -147,7 +146,7 @@ function encodeJWT($uuid, $name, $pic) {
  * @return boolean
  */
 function checkJWT($encodedJWT) {
-  $dbDet = dbDet($GLOBALS["locale"]);
+  $dbDet = dbDet();
   $private_key = $dbDet[6];
   $parts = explode(".", $encodedJWT);
   if (count($parts) === 3) {
