@@ -1,0 +1,14 @@
+@keyframes toast {
+	0% { opacity: 0; }
+	10% { opacity: 1; }
+	90% { opacity: 1; }
+	100% { opacity: 0; }
+}
+@keyframes fadein {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+@keyframes spinloader {
+	0% { filter: hue-rotate(0deg); }
+	100% { filter: hue-rotate(360deg); }
+}

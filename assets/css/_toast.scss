@@ -1,0 +1,26 @@
+#toast {
+	position: fixed;
+	left: 50%;
+	bottom: 2%;
+	overflow: hidden;
+	padding: .5rem 1rem;
+	color: $main-9;
+	background-color: rgba(0,0,0,.85);
+	box-shadow: $box-shadow;
+	border-radius: .25rem;
+	user-select: none;
+	opacity: 0;
+	transform: translateX(-50%);
+	animation: 5s forwards toast;
+	z-index: 998;
+
+	&.success {
+		background-color: $acc;
+	}
+	&.danger {
+		background-color: $danger;
+	}
+	&.info {
+		background-color: $info;
+	}
+}

@@ -1,0 +1,67 @@
+$theme-light: (
+	container: (
+		bg: #fff,
+		color: $main-1
+	),
+	nav: (
+		bg: $main-7,
+		color: $main-1
+	),
+	nav-item: (
+		bg: $main-9,
+		color: $main-1
+	),
+	mvc: (
+		bg: $main-9,
+		color: $main-1
+	),
+	mvb: (
+		bg: $main-9,
+		color: $main-1
+	)
+);
+
+
+
+
+
+$theme-dark: (
+	container: (
+		bg: $main-0,
+		color: $main-8
+	),
+	nav: (
+		bg: $main-3,
+		color: $main-1
+	),
+	nav-item: (
+		bg: $main-2,
+		color: $main-8
+	),
+	mvc: (
+		bg: $main-2,
+		color: $main-8
+	),
+	mvb: (
+		bg: $main-2,
+		color: $main-8
+	)
+);
+
+
+
+
+
+@mixin themable($theme-name, $theme-map) {
+	.#{$theme-name} {
+		@each $section, $map in $theme-map {
+				.#{$section} {
+						background-color: map-get($map, bg);
+						color: map-get($map, color);
+				}
+			}
+	}
+}
+
+@include themable(theme-light, $theme-light);
+@include themable(theme-dark, $theme-dark);
